@@ -1,0 +1,55 @@
+/* @font-face for every family used (system fonts are ignored by HyperFrames).
+   Files are copied into fonts/ by new_project.py from ~/.cache/argon-mg-video/fonts. */
+@font-face { font-family: "Google Sans Flex"; src: url("fonts/GoogleSansFlex.ttf") format("truetype"); font-weight: 100 900; font-stretch: 50% 200%; font-style: oblique -10deg 0deg; }
+@font-face { font-family: "Google Sans"; src: url("fonts/GoogleSans-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Google Sans"; src: url("fonts/GoogleSans-Bold.ttf") format("truetype"); font-weight: 700; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "Big Shoulders Display"; src: url("fonts/BigShouldersDisplay.ttf") format("truetype"); font-weight: 100 900; }
+@font-face { font-family: "Anton"; src: url("fonts/Anton-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono.ttf") format("truetype"); font-weight: 100 800; }
+
+:root {
+  --bg: #05060A; --ink: #F8FAFC; --ink-dark: #05060A;
+  --c1: #4285F4; --c2: #00E5FF; --c3: #9B72CB; --c4: #D96570; --c5: #7C4DFF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; color: var(--ink);
+  font-family: "Google Sans Flex", "Google Sans", sans-serif; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+#root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 960px 540px; }
+#camera { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 540px; }
+.scene-layer, .shot-layer { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden;
+  transform-origin: 960px 540px; will-change: transform, clip-path; }
+
+/* Subtle stage: charcoal-navy gradient + soft vignette (never a full-screen overlay above text).
+   Color lives in the hero type and vectors; the background only breathes. */
+#bg-canvas { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden;
+  background: linear-gradient(180deg, #07080D 0%, #0B0E18 100%); box-shadow: inset 0 0 260px rgba(0,0,0,0.55); }
+
+/* Type system: heroes 65-85% width, nothing under 48px */
+.font-flex { font-family: "Google Sans Flex", "Google Sans", sans-serif; }
+.font-serif { font-family: "Instrument Serif", serif; font-style: italic; }
+.font-display { font-family: "Big Shoulders Display", "Anton", sans-serif; text-transform: uppercase; }
+.font-mono { font-family: "JetBrains Mono", monospace; }
+.hero-xl { font-size: 190px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.0; white-space: nowrap; }
+.hero-lg { font-size: 200px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; white-space: nowrap; }
+.accent-xl { font-size: 230px; line-height: 1.0; white-space: nowrap; color: #C9A8FF; }
+.accent-md { font-size: 106px; line-height: 1.05; white-space: nowrap; color: #CFFAFE; }
+.signoff { font-size: 88px; font-weight: 700; white-space: nowrap; }
+.crisp-glow { text-shadow: 0 0 14px rgba(124,77,255,0.6), 0 0 48px rgba(124,77,255,0.26); }
+
+.center-block { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; }
+/* Masked line reveal container: text slides yPercent 118 -> 0 inside */
+.line-mask { overflow: hidden; padding: 14px 28px 22px; }
+.serif-mask { padding-bottom: 0.26em; } /* italic serif descenders reach ~22% below baseline */
+
+.band-wipe-group { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: 40; pointer-events: none; }
+.band-strip { position: absolute; top: 0; height: 1080px; transform: scaleY(0); transform-origin: 50% 0%; }
+
+/* Specular sweep: an SVG rect with url(#specularGrad) placed inside the hero's text mask (see index.html #s2-spec). */
+#flash-overlay { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0; pointer-events: none; z-index: 50;
+  background: radial-gradient(circle at 960px 540px, #FFFFFF 0%, #E0FFFF 42%, #B388FF 82%, #7C4DFF 100%); }
+#grain-svg { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 52; opacity: 0.055; mix-blend-mode: overlay; }

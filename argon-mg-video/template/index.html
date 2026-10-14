@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="common.css" />
+</head>
+<body>
+  <!-- Architecture: #root > #stage (timed, impact shakes + final fade) > #camera (kick punches + RGB split)
+       > #bg-canvas (light fields) + .scene-layer > .shot-layer, plus band wipes, flash, grain on top.
+       Every non-initial scene/shot/impact element starts with style="visibility:hidden". -->
+  <div id="root" data-composition-id="main" data-start="0" data-duration="{{DURATION}}" data-width="1920" data-height="1080">
+    <div id="stage" class="clip" data-start="0" data-duration="{{DURATION}}">
+
+      <svg width="0" height="0" style="position:absolute; pointer-events:none;">
+        <defs>
+          <!-- Smooth hero gradient: userSpaceOnUse, stops >= 15% apart, spans the glyph extent; animate x1/x2 to flow -->
+          <linearGradient id="heroGrad" gradientUnits="userSpaceOnUse" x1="240" y1="0" x2="1680" y2="0">
+            <stop offset="0%" stop-color="#4285F4" />
+            <stop offset="30%" stop-color="#00E5FF" />
+            <stop offset="60%" stop-color="#A66BFF" />
+            <stop offset="100%" stop-color="#FF6E7F" />
+          </linearGradient>
+          <linearGradient id="specularGrad" x1="0%" y1="0%" x2="100%" y2="20%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+          </linearGradient>
+          <!-- Outer-only rim + soft bloom (never stroke variable-font text: it strokes internal contours) -->
+          <filter id="cleanOuterRim" filterUnits="userSpaceOnUse" x="-100" y="-100" width="2120" height="1280">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="2.4" result="dilated" />
+            <feFlood flood-color="#F8FAFC" flood-opacity="0.96" result="rimColor" />
+            <feComposite in="rimColor" in2="dilated" operator="in" result="outerRim" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="softGlow" />
+            <feColorMatrix in="softGlow" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.36 0" result="glowDim" />
+            <feMerge><feMergeNode in="glowDim" /><feMergeNode in="outerRim" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <!-- 3-frame chromatic split used by addImpactHit() -->
+          <filter id="rgbImpactSplit" filterUnits="userSpaceOnUse" x="-60" y="-60" width="2040" height="1200">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redChan" />
+            <feOffset id="rgb-red-off" in="redChan" dx="-6" dy="-2" result="redShift" />
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="greenStay" />
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blueChan" />
+            <feOffset id="rgb-blue-off" in="blueChan" dx="6" dy="2" result="blueShift" />
+            <feBlend in="redShift" in2="greenStay" mode="screen" result="rgBlend" />
+            <feBlend in="rgBlend" in2="blueShift" mode="screen" />
+          </filter>
+          <!-- Peak-velocity motion blur: toggle on only for ~15-20 frames -->
+          <filter id="blurV" x="-10%" y="-25%" width="120%" height="150%"><feGaussianBlur stdDeviation="0 18" /></filter>
+          <filter id="blurH" x="-25%" y="-10%" width="150%" height="120%"><feGaussianBlur stdDeviation="22 0" /></filter>
+          <filter id="blurZoom" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="11 11" /></filter>
+          <!-- 4-point sparkle iris window (scale it around 960 540 to reveal the next shot) -->
+          <clipPath id="iris-clip" clipPathUnits="userSpaceOnUse">
+            <path id="iris-clip-path" d="M 960 200 C 990 480 1020 510 1300 540 C 1020 570 990 600 960 880 C 930 600 900 570 620 540 C 900 510 930 480 960 200 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div id="camera">
+        <!-- Subtle stage: color lives in the type/vectors, NOT the background.
+             Charcoal-navy gradient + ONE soft desaturated key light (8-14% alpha) + barely-there grid (3-5%). -->
+        <div id="bg-canvas" data-layout-allow-overflow="true">
+          <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0; pointer-events:none; overflow:visible;">
+            <defs>
+              <pattern id="subtleGridPattern" width="48" height="48" patternUnits="userSpaceOnUse">
+                <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#94A3B8" stroke-width="0.75" stroke-opacity="0.55" />
+                <circle cx="0" cy="0" r="1.1" fill="#CBD5E1" fill-opacity="0.75" />
+              </pattern>
+              <radialGradient id="bgKeyGrad" cx="50%" cy="50%" r="50%">
+                <stop id="bg-key-stop0" offset="0%" stop-color="#6C728E" stop-opacity="0.11" />
+                <stop id="bg-key-stop1" offset="46%" stop-color="#5E647E" stop-opacity="0.045" />
+                <stop offset="100%" stop-color="#07080D" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <g id="bg-subtle-grid" opacity="0.038">
+              <rect x="-120" y="-120" width="2160" height="1320" fill="url(#subtleGridPattern)" />
+            </g>
+            <ellipse id="bg-key-light" cx="960" cy="540" rx="880" ry="760" fill="url(#bgKeyGrad)" />
+          </svg>
+        </div>
+
+        <!-- SCENE 1: cold open (initial scene: visible) -->
+        <div id="scene1" class="scene-layer" style="z-index:10;">
+          <div id="s1-shotA" class="shot-layer">
+            <!-- secondary motion: rotating dashed orbit + sparkles keeps holds alive on a subtle stage -->
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0; pointer-events:none;">
+              <g id="s1a-orbit">
+                <circle cx="960" cy="540" r="300" fill="none" stroke="#4285F4" stroke-width="2.5" stroke-dasharray="14 18" opacity="0.55" />
+                <path transform="translate(960 240)" fill="#00E5FF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(1260 540)" fill="#A66BFF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(960 840)" fill="#FF6E7F" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(660 540)" fill="#4285F4" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" />
+              </g>
+            </svg>
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0;">
+              <g id="s1-rays" stroke-width="3" stroke-linecap="round">
+                <path class="s1-ray" d="M 960 540 L 960 180" stroke="#00E5FF" />
+                <path class="s1-ray" d="M 960 540 L 1280 360" stroke="#A66BFF" />
+                <path class="s1-ray" d="M 960 540 L 1280 720" stroke="#FF6E7F" />
+                <path class="s1-ray" d="M 960 540 L 960 900" stroke="#4285F4" />
+                <path class="s1-ray" d="M 960 540 L 640 720" stroke="#00E5FF" />
+                <path class="s1-ray" d="M 960 540 L 640 360" stroke="#A66BFF" />
+              </g>
+              <path id="s1-spark" fill="#FFFFFF" d="M 960 400 C 972 510 990 528 1100 540 C 990 552 972 570 960 680 C 948 570 930 552 820 540 C 930 528 948 510 960 400 Z" />
+            </svg>
+          </div>
+          <div id="s1-shotB" class="shot-layer" style="visibility:hidden;">
+            <!-- secondary motion: rotating dashed orbit + sparkles keeps holds alive on a subtle stage -->
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0; pointer-events:none;">
+              <g id="s1b-orbit">
+                <circle cx="960" cy="540" r="470" fill="none" stroke="#9B72CB" stroke-width="2.5" stroke-dasharray="14 18" opacity="0.55" />
+                <path transform="translate(960 70)" fill="#00E5FF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(1430 540)" fill="#A66BFF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(960 1010)" fill="#FF6E7F" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(490 540)" fill="#4285F4" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" />
+              </g>
+            </svg>
+            <div class="center-block">
+              <div class="line-mask"><div id="s1-line1" class="font-flex hero-xl">Something new</div></div>
+              <div class="line-mask serif-mask"><div id="s1-line2" class="font-serif accent-xl">is here.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCENE 2: hero lockup revealed through the sparkle iris -->
+        <div id="scene2" class="scene-layer" style="z-index:20; visibility:hidden; clip-path:url(#iris-clip);">
+          <div id="s2-shotA" class="shot-layer">
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0;">
+              <mask id="s2-hero-mask">
+                <text x="960" y="610" text-anchor="middle" font-family="Google Sans Flex" font-weight="900" font-size="300" fill="#FFFFFF" letter-spacing="-6">{{HERO}}</text>
+              </mask>
+              <g filter="url(#cleanOuterRim)">
+                <g mask="url(#s2-hero-mask)">
+                  <rect id="s2-hero-fill" x="0" y="300" width="1920" height="420" fill="url(#heroGrad)" />
+                  <!-- specular sweep lives INSIDE the text mask so it only lights the letters -->
+                  <rect id="s2-spec" x="0" y="300" width="360" height="420" fill="url(#specularGrad)" transform="skewX(-18)" style="visibility:hidden;" />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- SCENE 3: end card -->
+        <div id="scene3" class="scene-layer" style="z-index:30; visibility:hidden;">
+          <div id="s3-shotA" class="shot-layer">
+            <!-- secondary motion: rotating dashed orbit + sparkles keeps holds alive on a subtle stage -->
+            <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0; pointer-events:none;">
+              <g id="s3-orbit">
+                <circle cx="960" cy="540" r="520" fill="none" stroke="#4285F4" stroke-width="2.5" stroke-dasharray="14 18" opacity="0.55" />
+                <path transform="translate(960 20)" fill="#00E5FF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(1480 540)" fill="#A66BFF" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(960 1060)" fill="#FF6E7F" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" /><path transform="translate(440 540)" fill="#4285F4" d="M 0 -18 C 2 -5 5 -2 18 0 C 5 2 2 5 0 18 C -2 5 -5 2 -18 0 C -5 -2 -2 -5 0 -18 Z" />
+              </g>
+            </svg>
+            <div class="center-block">
+              <div class="line-mask"><div id="s3-title" class="font-flex hero-lg">{{TITLE}}</div></div>
+              <div class="line-mask serif-mask"><div id="s3-cta" class="font-serif accent-md">Available now</div></div>
+              <div class="line-mask"><div id="s3-sign" class="font-flex signoff">{{SIGNOFF}}</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stacked color-band wipe (4 vertical bands, staggered 2-3 frames) -->
+        <div id="wipe-bands-a" class="band-wipe-group" style="visibility:hidden;" data-layout-allow-occlusion="true">
+          <div class="band-strip ba-strip" style="left:0; width:480px; background:#00E5FF;"></div>
+          <div class="band-strip ba-strip" style="left:480px; width:480px; background:#4285F4;"></div>
+          <div class="band-strip ba-strip" style="left:960px; width:480px; background:#9B72CB;"></div>
+          <div class="band-strip ba-strip" style="left:1440px; width:480px; background:#D96570;"></div>
+        </div>
+
+        <!-- Shockwave (hidden until its hit frame!) -->
+        <svg id="shockwave" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute; left:0; top:0; z-index:45; visibility:hidden; pointer-events:none;" data-layout-allow-occlusion="true">
+          <circle cx="960" cy="540" r="200" fill="none" stroke="#00E5FF" stroke-width="10" />
+        </svg>
+
+        <div id="flash-overlay" data-layout-allow-occlusion="true"></div>
+
+        <svg id="grain-svg" width="1920" height="1080" viewBox="0 0 1920 1080" data-layout-allow-occlusion="true">
+          <defs><filter id="grainFilter"><feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="2" stitchTiles="stitch" /></filter></defs>
+          <rect id="grain-rect" x="-200" y="-200" width="2320" height="1480" filter="url(#grainFilter)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/CustomEase.min.js"></script>
+  <script src="vendor/SplitText.min.js"></script>
+  <script src="vendor/DrawSVGPlugin.min.js"></script>
+  <script src="vendor/MorphSVGPlugin.min.js"></script>
+  <script src="vendor/MotionPathPlugin.min.js"></script>
+  <script src="vendor/ScrambleTextPlugin.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // hyperframes check statically requires this assignment inside index.html
+    window.__timelines = window.__timelines || {};
+    window.__timelines["main"] = window.__mainTimeline;
+  </script>
+</body>
+</html>

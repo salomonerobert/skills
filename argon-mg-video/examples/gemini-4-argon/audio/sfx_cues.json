@@ -1,0 +1,590 @@
+{
+  "key": "F minor / Ab major (F minor pentatonic: F, Ab, Bb, C, Eb)",
+  "bpm": 128.0,
+  "sample_rate": 44100,
+  "duration": 30.0,
+  "cues": [
+    {
+      "t": 0,
+      "type": "pluck",
+      "freq": 261.63,
+      "gain": 0.4,
+      "pan": 0,
+      "label": "Scene 1A \u2014 #s1-core-spark Frame 1 ignition pop (C4)"
+    },
+    {
+      "t": 0.02,
+      "type": "zip",
+      "dur": 0.42,
+      "f0": 523.25,
+      "f1": 1396.91,
+      "gain": 0.3,
+      "pan": 0,
+      "label": "Scene 1A \u2014 .s1-ray + #s1-ring1 DrawSVG ignition strokes"
+    },
+    {
+      "t": 0.9375,
+      "type": "tickroll",
+      "count": 12,
+      "stagger": 0.02,
+      "freq": 261.63,
+      "pan_start": -0.35,
+      "pan_end": 0.35,
+      "gain": 0.3,
+      "label": "Scene 1B \u2014 'Something new' masked char slide-up"
+    },
+    {
+      "t": 0.9375,
+      "type": "swell",
+      "dur": 0.45,
+      "freq": 174.61,
+      "gain": 0.34,
+      "pan": 0,
+      "label": "Scene 1B \u2014 'Something new' wght 300->900 swell"
+    },
+    {
+      "t": 0.9375,
+      "type": "pluck",
+      "freq": 311.13,
+      "gain": 0.32,
+      "pan": -0.2,
+      "label": "Scene 1B \u2014 .s1b-sp sparkles pop (Eb4)"
+    },
+    {
+      "t": 1.2891,
+      "type": "tickroll",
+      "count": 7,
+      "stagger": 0.024,
+      "freq": 311.13,
+      "pan_start": -0.25,
+      "pan_end": 0.25,
+      "gain": 0.28,
+      "label": "Scene 1B \u2014 'is here.' masked char slide-up"
+    },
+    {
+      "t": 1.875,
+      "type": "tickroll",
+      "count": 6,
+      "stagger": 0.022,
+      "freq": 349.23,
+      "pan_start": -0.3,
+      "pan_end": 0.3,
+      "gain": 0.28,
+      "label": "Scene 1C \u2014 'ELEMENT 18 / NOBLE GAS' masked slide-up"
+    },
+    {
+      "t": 1.875,
+      "type": "zip",
+      "dur": 0.42,
+      "f0": 415.3,
+      "f1": 1046.5,
+      "gain": 0.28,
+      "pan": 0.15,
+      "label": "Scene 1C \u2014 #s1c-arc1/2 orbital DrawSVG arcs"
+    },
+    {
+      "t": 2.8125,
+      "type": "pluck",
+      "freq": 349.23,
+      "gain": 0.44,
+      "pan": 0,
+      "label": "Scene 1D \u2014 #s1-ar-tile Periodic Table tile pop (F4)"
+    },
+    {
+      "t": 3.2578,
+      "type": "glide",
+      "dur": 0.44,
+      "f0": 261.63,
+      "f1": 698.46,
+      "gain": 0.44,
+      "pan": 0,
+      "label": "Scene 1D->2 \u2014 Ar tile morphs into 4-point sparkle iris & opens"
+    },
+    {
+      "t": 3.75,
+      "type": "impact",
+      "freq": 87.31,
+      "gain": 0.96,
+      "pan": 0,
+      "duck_db": -3.2,
+      "label": "Scene 2 Drop \u2014 GEMINI 4 downbeat slam + shake + RGB split"
+    },
+    {
+      "t": 3.75,
+      "type": "shockwave",
+      "dur": 0.46,
+      "freq": 174.61,
+      "gain": 0.44,
+      "pan": 0,
+      "label": "Scene 2 Drop \u2014 #s2a-shockwave expanding vector ring"
+    },
+    {
+      "t": 4,
+      "type": "shimmer",
+      "dur": 1.1,
+      "freq": 698.46,
+      "pan_start": -0.45,
+      "pan_end": 0.45,
+      "gain": 0.28,
+      "label": "Scene 2A \u2014 #s2-gem-spec specular sweep across GEMINI (F5)"
+    },
+    {
+      "t": 4.2188,
+      "type": "tickroll",
+      "count": 5,
+      "stagger": 0.018,
+      "freq": 349.23,
+      "pan_start": -0.35,
+      "pan_end": 0.35,
+      "gain": 0.34,
+      "label": "Scene 2A \u2014 'ARGON' clip-path wipe slam"
+    },
+    {
+      "t": 4.2588,
+      "type": "zip",
+      "dur": 0.36,
+      "f0": 523.25,
+      "f1": 1396.91,
+      "gain": 0.3,
+      "pan": 0,
+      "label": "Scene 2A \u2014 #s2a-wing-l/r DrawSVG wing lines"
+    },
+    {
+      "t": 4.4387,
+      "type": "shimmer",
+      "dur": 1,
+      "freq": 830.61,
+      "pan_start": -0.45,
+      "pan_end": 0.45,
+      "gain": 0.28,
+      "label": "Scene 2A \u2014 #s2-argon-spec specular sweep across ARGON (Ab5)"
+    },
+    {
+      "t": 6.5625,
+      "type": "suck",
+      "dur": 0.64,
+      "f0": 174.61,
+      "f1": 523.25,
+      "pan_start": 0.28,
+      "pan_end": 0,
+      "gain": 0.48,
+      "label": "Transition 2->3 \u2014 Zoom-Through-O reverse vacuum swell + portal burst"
+    },
+    {
+      "t": 6.6425,
+      "type": "pluck",
+      "freq": 415.3,
+      "gain": 0.32,
+      "pan": 0.15,
+      "label": "Scene 3 \u2014 .s3-node neural cluster pop (Ab4)"
+    },
+    {
+      "t": 7.12,
+      "type": "tickroll",
+      "count": 6,
+      "stagger": 0.018,
+      "freq": 349.23,
+      "pan_start": -0.3,
+      "pan_end": 0.3,
+      "gain": 0.32,
+      "label": "Scene 3 \u2014 'Thinks' masked char slide-up"
+    },
+    {
+      "t": 7.12,
+      "type": "swell",
+      "dur": 0.65,
+      "freq": 207.65,
+      "gain": 0.36,
+      "pan": 0,
+      "label": "Scene 3 \u2014 'Thinks' wght 400->900 + wdth 92->114 swell"
+    },
+    {
+      "t": 7.5,
+      "type": "accent",
+      "freq": 130.81,
+      "gain": 0.44,
+      "pan": 0,
+      "label": "Scene 3 downbeat accent (Beat 16)"
+    },
+    {
+      "t": 7.5,
+      "type": "zip",
+      "dur": 0.55,
+      "f0": 349.23,
+      "f1": 830.61,
+      "gain": 0.3,
+      "pan": -0.15,
+      "label": "Scene 3 \u2014 .s3-trunk / .s3-branch thought-tree DrawSVG"
+    },
+    {
+      "t": 9.375,
+      "type": "doppler",
+      "dur": 0.54,
+      "f0": 523.25,
+      "f1": 130.81,
+      "gain": 0.48,
+      "pan": 0,
+      "label": "Scene 3 Beat 20 \u2014 Vertical camera dive down thought-tree"
+    },
+    {
+      "t": 9.555,
+      "type": "tickroll",
+      "count": 7,
+      "stagger": 0.022,
+      "freq": 415.3,
+      "pan_start": -0.3,
+      "pan_end": 0.3,
+      "gain": 0.32,
+      "label": "Scene 3 \u2014 'deeper.' masked char slide-up"
+    },
+    {
+      "t": 10.9688,
+      "type": "swish",
+      "bands": 4,
+      "stagger": 0.032,
+      "dur": 0.46,
+      "freq": 349.23,
+      "pan_start": 0.45,
+      "pan_end": -0.45,
+      "gain": 0.42,
+      "label": "Transition 3->4 \u2014 4-band horizontal Gemini color wipe"
+    },
+    {
+      "t": 11.25,
+      "type": "accent",
+      "freq": 174.61,
+      "gain": 0.46,
+      "pan": 0,
+      "label": "Scene 4 downbeat accent (Beat 24)"
+    },
+    {
+      "t": 11.25,
+      "type": "pluck",
+      "freq": 466.16,
+      "gain": 0.38,
+      "pan": 0,
+      "label": "Scene 4 \u2014 < / > brackets + 'CODES' snap open (Bb4)"
+    },
+    {
+      "t": 12.6563,
+      "type": "glide",
+      "dur": 0.32,
+      "f0": 349.23,
+      "f1": 523.25,
+      "gain": 0.42,
+      "pan": -0.22,
+      "label": "Scene 4 \u2014 < / > brackets morph into \u00bb chevrons + CODES slides left"
+    },
+    {
+      "t": 12.7363,
+      "type": "tickroll",
+      "count": 8,
+      "stagger": 0.024,
+      "freq": 523.25,
+      "pan_start": 0.05,
+      "pan_end": 0.45,
+      "gain": 0.34,
+      "label": "Scene 4 \u2014 'FASTER_' scramble/decode ticks"
+    },
+    {
+      "t": 15,
+      "type": "accent",
+      "freq": 207.65,
+      "gain": 0.44,
+      "pan": 0,
+      "label": "Scene 5 downbeat accent (Beat 32)"
+    },
+    {
+      "t": 15,
+      "type": "tickroll",
+      "count": 4,
+      "stagger": 0.024,
+      "freq": 415.3,
+      "pan_start": -0.25,
+      "pan_end": 0.25,
+      "gain": 0.3,
+      "label": "Scene 5A \u2014 'Sees' masked char slide-up"
+    },
+    {
+      "t": 16.4063,
+      "type": "pluck",
+      "freq": 523.25,
+      "gain": 0.42,
+      "pan": 0,
+      "label": "Scene 5B \u2014 #s5b-iris-outer / pupil pop open (C5)"
+    },
+    {
+      "t": 16.4063,
+      "type": "zip",
+      "dur": 0.42,
+      "f0": 415.3,
+      "f1": 1046.5,
+      "gain": 0.3,
+      "pan": 0,
+      "label": "Scene 5B \u2014 #s5b-lid-upper/lower eyelid DrawSVG"
+    },
+    {
+      "t": 16.4662,
+      "type": "tickroll",
+      "count": 10,
+      "stagger": 0.018,
+      "freq": 466.16,
+      "pan_start": -0.38,
+      "pan_end": 0.38,
+      "gain": 0.3,
+      "label": "Scene 5B \u2014 'Sees everything.' masked char slide-up"
+    },
+    {
+      "t": 18.4219,
+      "type": "shutter",
+      "dur": 0.33,
+      "freq": 174.61,
+      "gain": 0.46,
+      "pan": 0,
+      "label": "Transition 5->6 \u2014 Giant eye blinks shut (eyelid thump + iris latch click)"
+    },
+    {
+      "t": 18.75,
+      "type": "accent",
+      "freq": 174.61,
+      "gain": 0.46,
+      "pan": 0,
+      "label": "Scene 6A downbeat accent (Beat 40)"
+    },
+    {
+      "t": 18.75,
+      "type": "tickroll",
+      "count": 6,
+      "stagger": 0.022,
+      "freq": 349.23,
+      "pan_start": -0.3,
+      "pan_end": 0.3,
+      "gain": 0.32,
+      "label": "Scene 6A \u2014 'PLANS.' masked char slide-up"
+    },
+    {
+      "t": 18.75,
+      "type": "zip",
+      "dur": 0.5,
+      "f0": 466.16,
+      "f1": 1174.66,
+      "gain": 0.3,
+      "pan": -0.18,
+      "label": "Scene 6A \u2014 .s6a-path blueprint Bezier DrawSVG"
+    },
+    {
+      "t": 19.9453,
+      "type": "swish",
+      "bands": 3,
+      "stagger": 0.025,
+      "dur": 0.38,
+      "freq": 415.3,
+      "pan_start": -0.42,
+      "pan_end": 0.42,
+      "gain": 0.4,
+      "label": "Transition 6A->6B \u2014 3-band diagonal color wipe"
+    },
+    {
+      "t": 20.1563,
+      "type": "tickroll",
+      "count": 5,
+      "stagger": 0.02,
+      "freq": 415.3,
+      "pan_start": -0.28,
+      "pan_end": 0.28,
+      "gain": 0.32,
+      "label": "Scene 6B \u2014 'ACTS.' masked char slide-up"
+    },
+    {
+      "t": 20.1563,
+      "type": "pluck",
+      "freq": 622.25,
+      "gain": 0.38,
+      "pan": 0,
+      "label": "Scene 6B \u2014 twin kinetic chevrons pop (Eb5)"
+    },
+    {
+      "t": 21.3281,
+      "type": "impact",
+      "freq": 87.31,
+      "gain": 0.9,
+      "pan": 0,
+      "duck_db": -3,
+      "label": "Scene 6C \u2014 SHIPS. inverted white slam + shake + RGB split"
+    },
+    {
+      "t": 21.3281,
+      "type": "tickroll",
+      "count": 6,
+      "stagger": 0.012,
+      "freq": 523.25,
+      "pan_start": -0.3,
+      "pan_end": 0.3,
+      "gain": 0.34,
+      "label": "Scene 6C \u2014 'SHIPS.' high-velocity masked slide-up"
+    },
+    {
+      "t": 22.2422,
+      "type": "swish",
+      "bands": 4,
+      "stagger": 0.03,
+      "dur": 0.46,
+      "freq": 466.16,
+      "pan_start": -0.35,
+      "pan_end": 0.35,
+      "gain": 0.42,
+      "label": "Transition 6C->7 \u2014 4-band vertical color curtain"
+    },
+    {
+      "t": 22.53,
+      "type": "tickroll",
+      "count": 8,
+      "stagger": 0.022,
+      "freq": 415.3,
+      "pan_start": -0.35,
+      "pan_end": 0.35,
+      "gain": 0.3,
+      "label": "Scene 7A \u2014 'Generally available.' masked slide-up"
+    },
+    {
+      "t": 22.54,
+      "type": "zip",
+      "dur": 0.48,
+      "f0": 523.25,
+      "f1": 1396.91,
+      "gain": 0.3,
+      "pan": 0.18,
+      "label": "Scene 7A \u2014 .s7a-ray radial burst DrawSVG"
+    },
+    {
+      "t": 24.1641,
+      "type": "swish",
+      "bands": 2,
+      "stagger": 0.02,
+      "dur": 0.22,
+      "freq": 523.25,
+      "pan_start": -0.15,
+      "pan_end": 0.15,
+      "gain": 0.28,
+      "label": "Scene 7A \u2014 'Generally available.' masked slide-up exit"
+    },
+    {
+      "t": 24.375,
+      "type": "thud",
+      "freq": 174.61,
+      "pan": -0.18,
+      "gain": 0.46,
+      "label": "Scene 7B Row 1 \u2014 GEMINI API bar wipe + lock (F3)"
+    },
+    {
+      "t": 24.6094,
+      "type": "thud",
+      "freq": 207.65,
+      "pan": -0.06,
+      "gain": 0.46,
+      "label": "Scene 7B Row 2 \u2014 AI STUDIO bar wipe + lock (Ab3)"
+    },
+    {
+      "t": 24.8438,
+      "type": "thud",
+      "freq": 261.63,
+      "pan": 0.06,
+      "gain": 0.48,
+      "label": "Scene 7B Row 3 \u2014 VERTEX AI bar wipe + lock (C4)"
+    },
+    {
+      "t": 25.0781,
+      "type": "thud",
+      "freq": 349.23,
+      "pan": 0.18,
+      "gain": 0.5,
+      "label": "Scene 7B Row 4 \u2014 GEMINI APP bar wipe + lock (F4)"
+    },
+    {
+      "t": 26.13,
+      "type": "swish",
+      "bands": 4,
+      "stagger": 0.015,
+      "dur": 0.18,
+      "freq": 523.25,
+      "pan_start": -0.25,
+      "pan_end": 0.25,
+      "gain": 0.32,
+      "label": "Transition 7B->8 \u2014 4-row availability stack wipe-shut"
+    },
+    {
+      "t": 26.25,
+      "type": "pluck",
+      "freq": 698.46,
+      "gain": 0.4,
+      "pan": 0,
+      "label": "Scene 8 \u2014 #s8-sparkle hero crest pop (F5)"
+    },
+    {
+      "t": 26.25,
+      "type": "sting",
+      "dur": 1.85,
+      "freq": 174.61,
+      "gain": 0.42,
+      "pan": 0,
+      "label": "Scene 8 Beat 56 \u2014 End card arrival F minor add9 chord sting"
+    },
+    {
+      "t": 26.35,
+      "type": "shimmer",
+      "dur": 1.25,
+      "freq": 698.46,
+      "pan_start": -0.45,
+      "pan_end": 0.45,
+      "gain": 0.28,
+      "label": "Scene 8 \u2014 #s8-specular-bar first sweep across Gemini 4 Argon (F5)"
+    },
+    {
+      "t": 26.41,
+      "type": "zip",
+      "dur": 0.52,
+      "f0": 523.25,
+      "f1": 1046.5,
+      "gain": 0.34,
+      "pan": 0,
+      "label": "Scene 8 \u2014 #s8-underline 'Available now' underline DrawSVG"
+    },
+    {
+      "t": 28.125,
+      "type": "impact",
+      "freq": 87.31,
+      "gain": 0.94,
+      "pan": 0,
+      "duck_db": -3.2,
+      "label": "Scene 8 Beat 60 \u2014 Final lockup hit + shake + RGB split"
+    },
+    {
+      "t": 28.125,
+      "type": "shockwave",
+      "dur": 0.46,
+      "freq": 207.65,
+      "gain": 0.42,
+      "pan": 0,
+      "label": "Scene 8 Beat 60 \u2014 #s8-final-shockwave expanding cyan ring"
+    },
+    {
+      "t": 28.125,
+      "type": "shimmer",
+      "dur": 0.8,
+      "freq": 1046.5,
+      "pan_start": -0.45,
+      "pan_end": 0.45,
+      "gain": 0.32,
+      "label": "Scene 8 Beat 60 \u2014 #s8-specular-bar final sweep across Gemini 4 Argon (C6)"
+    },
+    {
+      "t": 28.125,
+      "type": "sting",
+      "dur": 1.62,
+      "freq": 174.61,
+      "gain": 0.48,
+      "pan": 0,
+      "label": "Scene 8 Beat 60 \u2014 Final resolved F minor add9 chord + long tail"
+    }
+  ]
+}

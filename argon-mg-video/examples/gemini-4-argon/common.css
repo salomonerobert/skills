@@ -1,0 +1,228 @@
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("fonts/GoogleSansFlex.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 50% 200%;
+  font-style: oblique -10deg 0deg;
+}
+@font-face {
+  font-family: "Google Sans";
+  src: url("fonts/GoogleSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Google Sans";
+  src: url("fonts/GoogleSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("fonts/BigShouldersDisplay.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Anton";
+  src: url("fonts/Anton-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Space Mono";
+  src: url("fonts/SpaceMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --bg: #05060A;
+  --ink: #F8FAFC;
+  --ink-dark: #05060A;
+  --g-blue: #4285F4;
+  --g-violet: #9B72CB;
+  --g-coral: #D96570;
+  --ar-plasma: #7C4DFF;
+  --ar-lilac: #B388FF;
+  --ar-cyan: #00E5FF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: #000000;
+  font-family: "Google Sans Flex", "Google Sans", sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+#root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: #000000;
+}
+
+#stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  transform-origin: 960px 540px;
+}
+
+#camera {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 960px 540px;
+}
+
+.scene-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  will-change: transform, clip-path;
+  transform-origin: 960px 540px;
+}
+
+.shot-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  will-change: transform, clip-path;
+  transform-origin: 960px 540px;
+}
+
+.font-flex {
+  font-family: "Google Sans Flex", "Google Sans", sans-serif;
+}
+.font-serif {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+}
+.font-display {
+  font-family: "Big Shoulders Display", "Anton", sans-serif;
+  text-transform: uppercase;
+}
+.font-anton {
+  font-family: "Anton", "Big Shoulders Display", sans-serif;
+  text-transform: uppercase;
+}
+.font-mono {
+  font-family: "JetBrains Mono", "Space Mono", monospace;
+}
+
+.plasma-tile {
+  background: linear-gradient(155deg, rgba(24, 18, 58, 0.96) 0%, rgba(9, 11, 26, 0.98) 100%);
+  border: 4px solid #7C4DFF;
+  border-radius: 40px;
+  box-shadow:
+    0 34px 96px rgba(0, 0, 0, 0.85),
+    0 0 72px rgba(124, 77, 255, 0.45),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Crisp two-layer bloom utility for hero text */
+.crisp-glow-blue {
+  text-shadow:
+    0 0 14px rgba(66, 133, 244, 0.6),
+    0 0 48px rgba(66, 133, 244, 0.26);
+}
+
+.crisp-glow-violet {
+  text-shadow:
+    0 0 14px rgba(124, 77, 255, 0.6),
+    0 0 48px rgba(124, 77, 255, 0.26);
+}
+
+.crisp-glow-cyan {
+  text-shadow:
+    0 0 12px rgba(0, 229, 255, 0.6),
+    0 0 44px rgba(0, 229, 255, 0.26);
+}
+
+/* Centered Availability Stack (Bar 14: 24.375 - 26.25s, scaled 1.2x for high presence!) */
+.surf-row {
+  position: relative;
+  width: 1680px;
+  height: 224px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.surf-accent-pill {
+  width: 18px;
+  height: 156px;
+  border-radius: 9px;
+  margin-right: 44px;
+  flex-shrink: 0;
+}
+
+.surf-wipe-bar {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 1680px;
+  height: 196px;
+  border-radius: 18px;
+  z-index: 5;
+  pointer-events: none;
+  transform-origin: 0% 50%;
+}
+
+/* Staggered multi-band transition overlays */
+.band-wipe-group {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+  z-index: 45;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.band-strip {
+  position: absolute;
+  will-change: transform;
+}
